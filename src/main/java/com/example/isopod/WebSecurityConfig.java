@@ -12,11 +12,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        System.out.println("SecurityFilterChain is running");
         http
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 ).sessionManagement(session -> {
-                    session.sessionCreationPolicy(SessionCreationPolicy.NEVER);
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 });
         return http.build();
     }
