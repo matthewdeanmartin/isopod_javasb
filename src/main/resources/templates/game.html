@@ -3,9 +3,17 @@
 <head><title>Isopod Adventure</title></head>
 <body>
 <pre th:text="${description}"></pre>
+<!--Session based-->
+<!--<form method="post" action="/action">-->
+<!--    <input type="text" name="command" autofocus autocomplete="off"/>-->
+<!--    <button type="submit">Send</button>-->
+<!--</form>-->
+
 <form method="post" action="/action">
     <input type="text" name="command" autofocus autocomplete="off"/>
+    <input type="hidden" name="state" th:value="${gameStateJson}"/>
     <button type="submit">Send</button>
 </form>
+
 </body>
 </html>

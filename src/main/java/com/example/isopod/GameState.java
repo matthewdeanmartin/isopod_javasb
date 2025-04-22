@@ -1,5 +1,7 @@
 package com.example.isopod;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.*;
 
 public class GameState {
@@ -7,6 +9,23 @@ public class GameState {
     private final Set<String> inventory = new HashSet<>();
     private String currentLocation = "cave";
 
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    public String toJson() {
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not serialize GameState", e);
+        }
+    }
+
+    public static GameState fromJson(String json) {
+        try {
+            return mapper.readValue(json, GameState.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not deserialize GameState", e);
+        }
+    }
     public GameState() {
         buildMap();
     }

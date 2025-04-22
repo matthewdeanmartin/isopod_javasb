@@ -19,10 +19,24 @@ public class GameController {
         return "game";
     }
 
+    // Session based
+//    @PostMapping("/action")
+//    public String handleAction(@RequestParam String command, @ModelAttribute GameState gameState, Model model) {
+//        String response = gameState.handleCommand(command);
+//        model.addAttribute("description", response);
+//        return "game";
+//    }
+
     @PostMapping("/action")
-    public String handleAction(@RequestParam String command, @ModelAttribute GameState gameState, Model model) {
-        String response = gameState.handleCommand(command);
-        model.addAttribute("description", response);
+    public String handleAction(
+            @RequestParam String command,
+            @RequestParam String state, // JSON string
+            Model model) {
+
+        GameState gameState = GameState.fromJson(state); // Deserialize state
+        String result = gameState.handleCommand(command);
+        model.addAttribute("description", result);
+        model.addAttribute("gameStateJson", gameState.toJson()); // Send it back for next turn
         return "game";
     }
 
