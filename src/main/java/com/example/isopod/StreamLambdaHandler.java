@@ -4,6 +4,7 @@ import com.amazonaws.serverless.exceptions.ContainerInitializationException;
 import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.model.HttpApiV2ProxyRequest;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
+import com.amazonaws.serverless.proxy.spring.SpringBootProxyHandlerBuilder;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import jakarta.ws.rs.core.Application;
@@ -12,13 +13,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+// com.example.isopod.StreamLambdaHandler::handleRequest
 public class StreamLambdaHandler implements RequestStreamHandler {
     private static SpringBootLambdaContainerHandler<HttpApiV2ProxyRequest, AwsProxyResponse> handler;
     static {
         try {
             // handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(Application.class);
             // If you are using HTTP APIs with the version 2.0 of the proxy model, use the getHttpApiV2ProxyHandler
-            method: handler = SpringBootLambdaContainerHandler.getHttpApiV2ProxyHandler(Application.class);
+            // method: handler = SpringBootLambdaContainerHandler.getHttpApiV2ProxyHandler(Application.class);
+
+            handler = new SpringBootProxyHandlerBuilder<HttpApiV2ProxyRequest>()
+                    .defaultHttpApiV2Proxy()
+                    .springBootApplication(IsopodApplication.class)
+                    .buildAndInitialize();
+
         } catch (ContainerInitializationException e) {
             // if we fail here. We re-throw the exception to force another cold start
             e.printStackTrace();

@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-// @SessionAttributes("gameState")
+//@SessionAttributes("gameState") // This might not work in Lambda
 public class GameController {
 
     @ModelAttribute("gameState")
