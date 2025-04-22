@@ -1,10 +1,15 @@
 # isopod_javasb
 Trivial text adventure game using java spring boot
 
+## Working example
+- [https://5k0n21386k.execute-api.us-east-2.amazonaws.com/](https://5k0n21386k.execute-api.us-east-2.amazonaws.com/)
+Game will be up until I tear it down.
+
 ## Goals
 - Be able to run the app locally in Tomcat
 - Able to run the app in ApiGateway + Lambda
 - Enough logging to know what is broken
+- Works with maven and Intellij (different build processes)
 
 ## Implementation
 - Used [Spring Initializer](https://start.spring.io/)
@@ -31,4 +36,5 @@ Trivial text adventure game using java spring boot
 ## TODO
 - get some sort of authentication working
 - Add Terraform and/or cdk and/or cloudformation and/or SAM
-- Write github actions to validate and deploy
+- Write Github actions to validate and deploy
+- Figure out how to run in VS Code
