@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
 
 public class GameState {
-    private final Map<String, Location> map = new HashMap<>();
-    private final Set<String> inventory = new HashSet<>();
+    private Map<String, Location> map = new HashMap<>();
+    private Set<String> inventory = new HashSet<>();
     private String currentLocation = "cave";
 
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -26,8 +26,33 @@ public class GameState {
             throw new RuntimeException("Could not deserialize GameState", e);
         }
     }
+
     public GameState() {
         buildMap();
+    }
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    public Map<String, Location> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, Location> map) {
+        this.map = map;
+    }
+
+    public Set<String> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Set<String> inventory) {
+        this.inventory = inventory;
     }
 
     private void buildMap() {

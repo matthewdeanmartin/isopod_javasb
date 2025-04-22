@@ -13,12 +13,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         System.out.println("SecurityFilterChain is running");
-        http
+        http.sessionManagement(session -> {
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                })
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
-                ).sessionManagement(session -> {
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                });
+                ).csrf(x-> x.disable());
         return http.build();
     }
 }

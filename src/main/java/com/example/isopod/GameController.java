@@ -30,10 +30,12 @@ public class GameController {
     @PostMapping("/action")
     public String handleAction(
             @RequestParam String command,
-            @RequestParam String state, // JSON string
+            @RequestParam(required = false) String state, // JSON string
             Model model) {
 
-        GameState gameState = GameState.fromJson(state); // Deserialize state
+        GameState gameState = (state != null && !state.isBlank())
+                ? GameState.fromJson(state)
+                : new GameState();
         String result = gameState.handleCommand(command);
         model.addAttribute("description", result);
         model.addAttribute("gameStateJson", gameState.toJson()); // Send it back for next turn
